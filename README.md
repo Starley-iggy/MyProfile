@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🚀 Portfolio Website
 
-## Getting Started
+Persoonlijke portfolio website gebouwd met Next.js, TypeScript en Tailwind CSS.
+Deze website toont mijn projecten, certificaten en contactgegevens in een moderne, overzichtelijke en professionele layout.
 
-First, run the development server:
+📌 Korte beschrijving
 
-```bash
+Deze portfolio is ontwikkeld om mijn vaardigheden als student Software Development te presenteren.
+De focus ligt op leesbaarheid, consistent design, en gebruiksvriendelijkheid, met ondersteuning voor animaties en een toegankelijke dark theme.
+
+🛠️ Gebruikte technologieën
+
+Next.js (App Router)
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Framer Motion (animaties)
+
+shadcn/ui (herbruikbare UI-componenten)
+
+✨ Functionaliteiten
+
+📄 Overzicht van projecten met externe links (GitHub)
+
+🎓 Certificaten met verwijzing naar LinkedIn
+
+📥 Downloadbare CV (PDF)
+
+🎨 Moderne dark mode UI
+
+♿ Toegankelijke focus states (keyboard friendly)
+
+📱 Volledig responsive (mobile & desktop)
+
+📁 Projectstructuur (beknopt)
+portfolio-next/
+├─ app/
+│  └─ page.tsx        # Hoofdpagina van de portfolio
+├─ components/
+│  └─ ui/             # shadcn UI componenten (Card, Button, etc.)
+├─ public/
+│  └─ cv.pdf          # Downloadbaar CV
+├─ tailwind.config.ts
+└─ README.md
+
+▶️ Project lokaal draaien
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open daarna:
+👉 http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🌍 Deploy
 
-## Learn More
+Dit project is geschikt voor deployment op Vercel.
 
-To learn more about Next.js, take a look at the following resources:
+Na deployment is het CV beschikbaar via:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://jouw-site.vercel.app/cv.pdf
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+👤 Auteur
 
-## Deploy on Vercel
+Starley Igbinomwhaia Briggs
+Student Software Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GitHub: https://github.com/Starley-iggy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+LinkedIn: https://www.linkedin.com/
+
+📄 Licentie
+
+Dit project is gemaakt voor educatieve en persoonlijke doeleinden.

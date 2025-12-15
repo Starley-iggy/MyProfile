@@ -1,7 +1,7 @@
 # Portfolio Website
 
 - [English README](portfolio-next/README.md)
-- [Nederlandse README](README_NL.md)
+
 ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white)

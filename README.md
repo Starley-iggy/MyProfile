@@ -57,8 +57,7 @@ Dit project is geschikt voor deployment via Vercel.
 Na deployment is het CV beschikbaar via:
 /cv.pdf
 
-csharp
-Copy code
+https://starley-lac.vercel.app/
 
 ## Auteur
 Starley Igbinomwhaia Briggs  

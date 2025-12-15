@@ -1,5 +1,11 @@
 # Portfolio Website
 
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white)
+![License](https://img.shields.io/badge/License-Personal%20Use-green)
+
 Persoonlijke portfolio website gebouwd met Next.js, TypeScript en Tailwind CSS.  
 De website laat mijn projecten, certificaten en contactgegevens zien in een moderne en professionele layout.
 
@@ -32,8 +38,6 @@ portfolio-next/
 ├─ tailwind.config.ts
 └─ README.md
 
-shell
-Copy code
 
 ## Lokaal draaien
 npm install
@@ -44,8 +48,6 @@ npm run dev
 Open daarna:
 http://localhost:3000
 
-csharp
-Copy code
 
 ## Deployment
 Dit project is geschikt voor deployment via Vercel.

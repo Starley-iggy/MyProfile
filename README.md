@@ -3,9 +3,6 @@
 Persoonlijke portfolio website gebouwd met Next.js, TypeScript en Tailwind CSS.  
 De website laat mijn projecten, certificaten en contactgegevens zien in een moderne en professionele layout.
 
-## Korte beschrijving
-Deze portfolio is ontwikkeld om mijn vaardigheden als student Software Development te presenteren.  
-De focus ligt op overzicht, toegankelijkheid en een strak dark theme met subtiele animaties.
 
 ## Gebruikte technologieën
 - Next.js (App Router)

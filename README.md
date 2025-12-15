@@ -59,7 +59,7 @@ https://starley-lac.vercel.app/
 
 ## Auteur
 Starley Igbinomwhaia Briggs  
-Student Software Development
+Student Software Engineering
 
 GitHub: https://github.com/Starley-iggy  
 LinkedIn: https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/

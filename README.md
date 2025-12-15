@@ -42,8 +42,7 @@ Copy code
 npm install
 npm run dev
 
-sql
-Copy code
+
 
 Open daarna:
 http://localhost:3000
@@ -64,7 +63,7 @@ Starley Igbinomwhaia Briggs
 Student Software Development
 
 GitHub: https://github.com/Starley-iggy  
-LinkedIn: https://www.linkedin.com/
+LinkedIn: https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/
 
 ## Licentie
-Dit project is gemaakt voor persoonlijke en educatieve doeleinden.
+Dit project is gemaakt zodat ik een online portfolio e=heb maar ook dat je al een beetje kan zien wat ik kan

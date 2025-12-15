@@ -63,4 +63,4 @@ GitHub: https://github.com/Starley-iggy
 LinkedIn: https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/
 
 ## Licentie
-Dit project is gemaakt zodat ik een online portfolio e=heb maar ook dat je al een beetje kan zien wat ik kan
+Dit project is gemaakt zodat ik een online portfolio heb maar ook dat je al een beetje kan zien wat ik kan

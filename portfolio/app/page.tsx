@@ -56,7 +56,7 @@ const PROFILE = {
   githubUsername: "Starley-iggy",
   githubUrl: "https://github.com/Starley-iggy",
 
-  // LinkedIn (vervang dit!)
+  // LinkedIn 
   linkedinUrl: "https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/",
 };
 
@@ -281,7 +281,8 @@ export default function Page() {
               </Button>
 
               {/* CV download
-                  - Zet je cv in /public/cv.pdf zodat deze link werkt
+                  - cv.pdf toegevoegd in public/ folder
+                  - browser pakt automatisch public/ op als root
                */}
               <Button
                 variant="outline"
@@ -333,9 +334,11 @@ export default function Page() {
               <h2 className="text-2xl font-semibold text-zinc-100">Over mij</h2>
 
               <p className={`${textSub} leading-relaxed`}>
-                Ik ben een gemotiveerde student met een passie voor leren en groeien in mijn vakgebied.
-                 Momenteel ben ik bezig met mijn Sololearning Software Developing op Firda.
-                  Ben nu aan de slag met Python, Java, mysql en php om daar ook gevorderd in te worden.
+                Hallo! Ik ben een software engineering student aan Firda met een passie voor technologie en innovatie. 
+                Via SoloLearn heb ik diverse certificaten behaald, waaronder Python, Java en MySQL ,
+                  waarmee ik mijn vaardigheden in softwareontwikkeling verder heb aangescherpt. 
+                Ik hou ervan om te leren, te experimenteren en uitdagende projecten tot leven te brengen,
+                 en ik ben altijd op zoek naar nieuwe manieren om mijn kennis te verdiepen en toe te passen.
               </p>
 
               {/* Skills badges */}

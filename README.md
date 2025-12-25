@@ -6,11 +6,12 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white)
 ![License](https://img.shields.io/badge/License-Personal%20Use-green)
 
-Persoonlijke portfolio website gebouwd met Next.js, TypeScript en Tailwind CSS.  
-De website laat mijn projecten, certificaten en contactgegevens zien in een moderne en professionele layout.
+Personal portfolio website built with Next.js, TypeScript, and Tailwind CSS.  
+The website showcases my projects, certificates, and contact information in a modern and professional layout.
 
 
-## Gebruikte technologieën
+
+## Technologies used
 - Next.js (App Router)
 - React
 - TypeScript
@@ -18,16 +19,16 @@ De website laat mijn projecten, certificaten en contactgegevens zien in een mode
 - Framer Motion
 - shadcn/ui
 
-## Functionaliteiten
-- Over mij sectie
-- Projecten met links naar GitHub
-- Certificaten (bijv. LinkedIn)
-- Downloadbare CV (PDF)
+## Features
+- About Me section
+- Projects with links to GitHub and to Linkdin 
+- Certificates (e.g. Sololearn)
+- Downloadable CV (PDF)
 - Dark mode design
-- Toegankelijke focus states (keyboard support)
-- Volledig responsive (mobile & desktop)
+- Accessible focus states (keyboard support)
+- Fully responsive (mobile & desktop)
 
-## Projectstructuur
+## Project structure 
 portfolio-next/
 ├─ app/
 │ └─ page.tsx
@@ -39,25 +40,26 @@ portfolio-next/
 └─ README.md
 
 
-## Lokaal draaien
+## Run local
 npm install
 npm run dev
 
 
 
-Open daarna:
+Then open:
 http://localhost:3000
 
 
 ## Deployment
-Dit project is geschikt voor deployment via Vercel.
+This project is suitable for deployment via Vercel.
 
-Na deployment is het CV beschikbaar via:
+After deployment, the CV is available at:
 /cv.pdf
 
+Live website:
 https://starley-lac.vercel.app/
 
-## Auteur
+## Author
 Starley Igbinomwhaia Briggs  
 Student Software Engineering
 
@@ -65,4 +67,4 @@ GitHub: https://github.com/Starley-iggy
 LinkedIn: https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/
 
 ## Licentie
-Dit project is gemaakt zodat ik een online portfolio heb maar ook dat je al een beetje kan zien wat ik kan
+This project was created as a personal online portfolio to showcase my skills and experience.

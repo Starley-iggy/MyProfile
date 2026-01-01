@@ -333,7 +333,7 @@ export default function Page() {
               <h2 className="text-2xl font-semibold text-zinc-100">Over mij</h2>
 
               <p className={`${textSub} leading-relaxed`}>
-                Hallo! Ik ben een software engineering student aan Firda met een passie voor technologie en innovatie.
+                Hallo! Ik ben een Software Engineering student aan Firda met een passie voor technologie en innovatie.
                  Via SoloLearn heb ik diverse certificaten behaald, waaronder Python, Java, en MySQL, waarmee ik mijn vaardigheden in softwareontwikkeling verder heb aangescherpt. 
                  Ik hou ervan om te leren, te experimenteren en uitdagende projecten tot leven te brengen,
                   en ik ben altijd op zoek naar nieuwe manieren om mijn kennis te verdiepen en toe te passen.

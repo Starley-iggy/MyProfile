@@ -58,6 +58,9 @@ const PROFILE = {
 
   // LinkedIn 
   linkedinUrl: "https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/",
+
+  // Nieuwsartikel
+  nieuwsArtikelUrl: "https://www.actiefonline.nl/reader/23419#p=1",
 };
 
 /**
@@ -320,6 +323,20 @@ export default function Page() {
                   rel="noreferrer noopener"
                 >
                   LinkedIn
+                </a>
+              </Button>
+              {/* Newsartikellink */}
+              <Button
+                variant="outline"
+                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
+                asChild
+              >
+                <a
+                  href={PROFILE.nieuwsArtikelUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Nieuwsartikel
                 </a>
               </Button>
             </div>

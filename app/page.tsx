@@ -60,7 +60,7 @@ const PROFILE = {
   linkedinUrl: "https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/",
 
   // Nieuwsartikel
-  nieuwsArtikelUrl: "https://www.actiefonline.nl/reader/23419#p=1",
+  nieuwsArtikelUrl: "https://www.actiefonline.nl/nieuws/algemeen/67989/stap-in-het-leven-van-bonifatius",
 };
 
 /**

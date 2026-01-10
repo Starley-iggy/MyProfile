@@ -29,14 +29,23 @@ The website showcases my projects, certificates, and contact information in a mo
 - Fully responsive (mobile & desktop)
 
 ## Project structure 
-portfolio-next/
+
+### portfolio-next/
+
 ├─ app/
+
 │ └─ page.tsx
+
 ├─ components/
+
 │ └─ ui/
+
 ├─ public/
+
 │ └─ cv.pdf
+
 ├─ tailwind.config.ts
+
 └─ README.md
 
 

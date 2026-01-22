@@ -74,13 +74,13 @@ const PROFILE = {
  */
 const CERTIFICATES = [
   {
-    title: "Coding foundations",
+    title: "Coding Foundations",
     issuer: "Sololearn",
     year: "2025",
     credentialUrl: "https://www.sololearn.com/certificates/CC-HGXQVGBL",
   },
   {
-    title: "Tech for everyone",
+    title: "Tech for Everyone",
     issuer: "Sololearn",
     year: "2025",
     credentialUrl: "https://www.sololearn.com/certificates/CC-0Q77WDTM",
@@ -134,7 +134,7 @@ const CERTIFICATES = [
     credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE",
   },
   {
-    title: "Web development",
+    title: "Web Development",
     issuer: "Sololearn",
     year: "2026",
     credentialUrl: "https://www.sololearn.com/certificates/CC-PTLTEH2T",

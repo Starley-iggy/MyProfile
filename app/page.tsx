@@ -127,6 +127,18 @@ const CERTIFICATES = [
     year: "2025",
     credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP",
   },
+  {
+    title: "Generative AI in Practice",
+    issuer: "Sololearn",
+    year: "2025",
+    credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE",
+  },
+  {
+    title: "Web development",
+    issuer: "Sololearn",
+    year: "2026",
+    credentialUrl: "https://www.sololearn.com/certificates/CC-PTLTEH2T",
+  },
 ] as const;
 
 /**

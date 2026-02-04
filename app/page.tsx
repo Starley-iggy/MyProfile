@@ -86,52 +86,36 @@ const CERTIFICATES = [
     credentialUrl: "https://www.sololearn.com/certificates/CC-0Q77WDTM",
   },
   {
-    title: "Introduction to Java",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-L3UZOQWB",
+  title: "Java Certificates",
+  issuer: "Sololearn",
+  year: "2025",
+  category: "Java",
+  links: [
+    { label: "Java Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-L3UZOQWB" },
+    { label: "Java Intermediate", credentialUrl: "https://www.sololearn.com/certificates/CC-I5G0AMCP" }
+  ]
   },
   {
-    title: "Write with AI",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W",
+  title: "SQL Certificates",
+  issuer: "Sololearn",
+  year: "2025",
+  category: "SQL",
+  links: [
+    { label: "SQL Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-YCCQ1VXI" },
+    { label: "SQL Intermediate", credentialUrl: "https://www.sololearn.com/certificates/CC-5KIHKP7Y" }
+  ]
   },
   {
-    title: "Introduction to SQL",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-YCCQ1VXI",
-  },
-  {
-    title: "SQL Intermediate",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-5KIHKP7Y",
-  },
-  {
-    title: "Data Analysis with AI",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY",
-  },
-  {
-    title: "Java Intermediate",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-I5G0AMCP",
-  },
-  {
-    title: "Social Media Marketing with AI",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP",
-  },
-  {
-    title: "Generative AI in Practice",
-    issuer: "Sololearn",
-    year: "2025",
-    credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE",
+  title: "AI Certificates",
+  issuer: "Sololearn",
+  year: "2025",
+  category: "AI",
+  links: [
+    { label: "Write with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W" },
+    { label: "Data Analysis with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY" },
+    { label: "Social Media Marketing with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP" },
+    { label: "Generative AI in Practice", credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE" }
+  ]
   },
   {
     title: "Web Development",
@@ -555,20 +539,42 @@ export default function Page() {
                         {c.issuer} • {c.year}
                       </p>
 
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10 mt-2"
-                        asChild
-                      >
-                        <a
-                          href={c.credentialUrl}
-                          target="_blank"
-                          rel="noreferrer noopener"
+                      {"credentialUrl" in c ? (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10 mt-2"
+                          asChild
                         >
-                          Bekijk credential
-                        </a>
-                      </Button>
+                          <a
+                            href={c.credentialUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            Bekijk credential
+                          </a>
+                        </Button>
+                      ) : (
+                        <div className="space-y-2">
+                          {c.links.map((link) => (
+                            <Button
+                              key={link.label}
+                              size="sm"
+                              variant="outline"
+                              className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10 w-full"
+                              asChild
+                            >
+                              <a
+                                href={link.credentialUrl}
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                {link.label}
+                              </a>
+                            </Button>
+                          ))}
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </motion.div>

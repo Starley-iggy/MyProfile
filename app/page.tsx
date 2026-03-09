@@ -23,6 +23,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { title } from "process";
 
 /**
  * TypeScript type voor de GitHub repo response.
@@ -112,10 +113,19 @@ const CERTIFICATES = [
   category: "AI",
   links: [
     { label: "Write with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W" },
-    { label: "Data Analysis with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY" },
     { label: "Social Media Marketing with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP" },
     { label: "Generative AI in Practice", credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE" },
-    { label: "Machine Learning for Beginners", credentialUrl: "https://www.sololearn.com/certificates/CC-HNLBQJA2" }
+  ]
+  },
+  {
+  title: "Data science Certificates",
+  issuer: "Sololearn",
+  year: "2025-2026",
+  category: "Datascience",
+  links: [
+    { label: "Data Analysis with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY" },
+    { label: "Machine Learning for Beginners", credentialUrl: "https://www.sololearn.com/certificates/CC-HNLBQJA2" },
+    { label: "Visualize your Data", credentialUrl: "https://www.sololearn.com/certificates/CC-ZG4DVYGE" },
   ]
   },
   {
@@ -133,7 +143,7 @@ const CERTIFICATES = [
   {
   title: "C++ Certificates",
   issuer: "Sololearn",
-  year: "2025",
+  year: "2026",
   category: "C++",
   links: [
     { label: "C++ Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-CJJOKOV8" }

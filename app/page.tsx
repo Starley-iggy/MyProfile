@@ -114,7 +114,8 @@ const CERTIFICATES = [
     { label: "Write with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W" },
     { label: "Data Analysis with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY" },
     { label: "Social Media Marketing with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP" },
-    { label: "Generative AI in Practice", credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE" }
+    { label: "Generative AI in Practice", credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE" },
+    { label: "Machine Learning for Beginners", credentialUrl: "https://www.sololearn.com/certificates/CC-HNLBQJA2" }
   ]
   },
   {
@@ -122,6 +123,21 @@ const CERTIFICATES = [
     issuer: "Sololearn",
     year: "2026",
     credentialUrl: "https://www.sololearn.com/certificates/CC-PTLTEH2T",
+  },
+  {
+    title: "Python developer",
+    issuer: "Sololearn",
+    year: "2026",
+    credentialUrl: "https://www.sololearn.com/certificates/CC-4ANM8Y6X",
+  },
+  {
+  title: "C++ Certificates",
+  issuer: "Sololearn",
+  year: "2025",
+  category: "C++",
+  links: [
+    { label: "C++ Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-CJJOKOV8" }
+  ]
   },
 ] as const;
 
@@ -150,7 +166,8 @@ export default function Page() {
    * - useMemo is niet verplicht, maar netjes (stabiel array reference)
    */
   const skills = useMemo(
-    () => ["React", "TypeScript", "Next.js", "Tailwind", "Git/GitHub" , "Python", "Java", "MySQL", "PHP" , "HTML", "CSS", "C#", "Vercel"],
+    () => ["React", "TypeScript", "Next.js", "Tailwind", "Git/GitHub" , 
+      "Python", "Java", "MySQL", "PHP" , "HTML", "CSS", "C#", "Vercel", "C++"],
     []
   );
 

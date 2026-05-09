@@ -1,34 +1,13 @@
 "use client";
-/**
- * app/page.tsx  (Next.js App Router)
- *
- * Waarom "use client"?
- * - Framer Motion (animaties) werkt in de browser
- * - We halen GitHub repos op via fetch() in de browser (client-side)
- *
- * Let op:
- * - Client-side GitHub fetch kan soms rate limits geven als je vaak refresh.
- * - Voor “super pro” kan dit later server-side met revalidate (maar voor nu: makkelijk & werkt direct).
- */
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-
-/**
- * Shadcn/ui components:
- * - Deze zijn gewoon React components die in jouw projectfolder worden gezet.
- * - Daarom moeten ze ook echt bestaan in /components/ui/...
- */
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { title } from "process";
+import Image from "next/image";
 
-/**
- * TypeScript type voor de GitHub repo response.
- * We nemen alleen de velden die we nodig hebben (subset).
- */
 type Repo = {
   id: number;
   name: string;
@@ -42,37 +21,26 @@ type Repo = {
   fork?: boolean;
 };
 
-/**
- * PROFIEL INFO
- * - Alles wat persoonlijk is zet je hier zodat je het op 1 plek kunt aanpassen.
- * - Vervang LinkedIn URL met jouw echte profiel link.
- */
 const PROFILE = {
-  name: "Starley Igbinomwhaia Briggs",
-  tagline: "Student Software Engineering • Probleemoplossend • Creatief",
+  name: "Starley Igbinomwhaia-Briggs",
+  tagline: "Software Engineering Student • Creatieve Denker • Oog voor Detail • Sociaal en Communicatief • Probleemoplosser",
   email: "starleybriggs4@gmail.com",
   location: "Leeuwarden, Nederland",
-
-  // GitHub
   githubUsername: "Starley-iggy",
   githubUrl: "https://github.com/Starley-iggy",
-
-  // LinkedIn 
   linkedinUrl: "https://www.linkedin.com/in/starley-igbinomwhaia-briggs-a851432aa/",
-
-  // Nieuwsartikel
-  nieuwsArtikelUrl: "https://www.actiefonline.nl/nieuws/algemeen/67989/stap-in-het-leven-van-bonifatius",
+  nieuwsArtikelUrl:
+    "https://www.actiefonline.nl/nieuws/algemeen/67989/stap-in-het-leven-van-bonifatius",
 };
 
-/**
- * CERTIFICATEN
- * LinkedIn heeft niet makkelijk een publieke API om “automatisch” je certificaten te pullen.
- * Professionele oplossing: je beheert een lijst met jouw certificaten + credential URLs.
- *
- * Tip:
- * - Als je een “Credential URL” hebt in LinkedIn, plak die bij credentialUrl.
- * - Anders kun je linken naar je LinkedIn profiel of de certificaten-sectie.
- */
+const roles = [
+  "Software Engineering Student",
+  "Creatieve Denker",
+  "Oog voor Detail",
+  "Sociaal en Communicatief",
+  "Probleemoplossend",
+];
+
 const CERTIFICATES = [
   {
     title: "Coding Foundations",
@@ -87,46 +55,72 @@ const CERTIFICATES = [
     credentialUrl: "https://www.sololearn.com/certificates/CC-0Q77WDTM",
   },
   {
-  title: "Java Certificates",
-  issuer: "Sololearn",
-  year: "2025",
-  category: "Java",
-  links: [
-    { label: "Java Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-L3UZOQWB" },
-    { label: "Java Intermediate", credentialUrl: "https://www.sololearn.com/certificates/CC-I5G0AMCP" }
-  ]
+    title: "Java Certificates",
+    issuer: "Sololearn",
+    year: "2025",
+    links: [
+      {
+        label: "Java Introduction",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-L3UZOQWB",
+      },
+      {
+        label: "Java Intermediate",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-I5G0AMCP",
+      },
+    ],
   },
   {
-  title: "SQL Certificates",
-  issuer: "Sololearn",
-  year: "2025",
-  category: "SQL",
-  links: [
-    { label: "SQL Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-YCCQ1VXI" },
-    { label: "SQL Intermediate", credentialUrl: "https://www.sololearn.com/certificates/CC-5KIHKP7Y" }
-  ]
+    title: "SQL Certificates",
+    issuer: "Sololearn",
+    year: "2025",
+    links: [
+      {
+        label: "SQL Introduction",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-YCCQ1VXI",
+      },
+      {
+        label: "SQL Intermediate",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-5KIHKP7Y",
+      },
+    ],
   },
   {
-  title: "AI Certificates",
-  issuer: "Sololearn",
-  year: "2025",
-  category: "AI",
-  links: [
-    { label: "Write with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W" },
-    { label: "Social Media Marketing with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP" },
-    { label: "Generative AI in Practice", credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE" },
-  ]
+    title: "AI Certificates",
+    issuer: "Sololearn",
+    year: "2025",
+    links: [
+      {
+        label: "Write with AI",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-1OLZEK7W",
+      },
+      {
+        label: "Social Media Marketing with AI",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-AMSOTNOP",
+      },
+      {
+        label: "Generative AI in Practice",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-LLTJQJAE",
+      },
+    ],
   },
   {
-  title: "Data science Certificates",
-  issuer: "Sololearn",
-  year: "2025-2026",
-  category: "Datascience",
-  links: [
-    { label: "Data Analysis with AI", credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY" },
-    { label: "Machine Learning for Beginners", credentialUrl: "https://www.sololearn.com/certificates/CC-HNLBQJA2" },
-    { label: "Visualize your Data", credentialUrl: "https://www.sololearn.com/certificates/CC-ZG4DVYGE" },
-  ]
+    title: "Data Science Certificates",
+    issuer: "Sololearn",
+    year: "2025-2026",
+    links: [
+      {
+        label: "Data Analysis with AI",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-OPIQ73VY",
+      },
+      {
+        label: "Machine Learning for Beginners",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-HNLBQJA2",
+      },
+      {
+        label: "Visualize your Data",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-ZG4DVYGE",
+      },
+    ],
   },
   {
     title: "Web Development",
@@ -135,62 +129,102 @@ const CERTIFICATES = [
     credentialUrl: "https://www.sololearn.com/certificates/CC-PTLTEH2T",
   },
   {
-    title: "Python developer",
+    title: "Python Developer",
     issuer: "Sololearn",
     year: "2026",
     credentialUrl: "https://www.sololearn.com/certificates/CC-4ANM8Y6X",
   },
   {
-  title: "C++ Certificates",
-  issuer: "Sololearn",
+    title: "C++ Certificate",
+    issuer: "Sololearn",
+    year: "2026",
+    links: [
+      {
+        label: "C++ Introduction",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-CJJOKOV8",
+      },
+      {
+        label: "C++ Intermediate",
+        credentialUrl: "https://www.sololearn.com/certificates/CC-D1CIYBLS",
+      },
+    ],
+  },
+  {
+  title: "System Integration Specialist Certificate",
+  issuer: "Frank!academy",
   year: "2026",
-  category: "C++",
-  links: [
-    { label: "C++ Introduction", credentialUrl: "https://www.sololearn.com/certificates/CC-CJJOKOV8" }
-  ]
+  credentialUrl: "https://wearefrank.nl/frank-academy",
+  image: "/Frank-Certs.png",
   },
 ] as const;
 
-/**
- * Date formatting helper:
- * - Voor "Updated: dec 2025" vibe
- */
+
+function useTypingEffect(words: string[]) {
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [letterIndex, setLetterIndex] = useState(0);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+
+    if (letterIndex === currentWord.length + 1) {
+      const pause = setTimeout(() => {
+        setLetterIndex(0);
+        setWordIndex((prev) => (prev + 1) % words.length);
+      }, 1200);
+
+      return () => clearTimeout(pause);
+    }
+
+    const timer = setTimeout(() => {
+      setText(currentWord.substring(0, letterIndex));
+      setLetterIndex((prev) => prev + 1);
+    }, 75);
+
+    return () => clearTimeout(timer);
+  }, [letterIndex, wordIndex, words]);
+
+  return text;
+}
+
 function formatDate(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString("nl-NL", { year: "numeric", month: "short" });
+  return new Date(iso).toLocaleDateString("nl-NL", {
+    year: "numeric",
+    month: "short",
+  });
 }
 
 export default function Page() {
-  /**
-   * GitHub repos state:
-   * - repos: lijst met repos die we tonen
-   * - loading: “laden…” state voor UX
-   * - error: als fetch faalt, tonen we een nette fallback
-   */
+  const typedText = useTypingEffect(roles);
+
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCertificateImage, setSelectedCertificateImage] = useState<{
+  src: string;
+  title: string;
+} | null>(null);
 
-  /**
-   * Skills badges (over mij):
-   * - useMemo is niet verplicht, maar netjes (stabiel array reference)
-   */
   const skills = useMemo(
-    () => ["React", "TypeScript", "Next.js", "Tailwind", "Git/GitHub" , 
-      "Python", "Java", "MySQL", "PHP" , "HTML", "CSS", "C#", "Vercel", "C++"],
+    () => [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Python",
+      "Java",
+      "PHP",
+      "MySQL",
+      "HTML",
+      "CSS",
+      "C#",
+      "C++",
+      "Vercel",
+      "Git/GitHub",
+    ],
     []
   );
 
-  /**
-   * GitHub repos ophalen bij het laden van de pagina.
-   * We:
-   * 1) Fetch alle repos (max 100)
-   * 2) Filter forks eruit
-   * 3) Sorteren op:
-   *    - eerst stars (meest “impact”)
-   *    - dan recent update (actief)
-   * 4) Nemen top 6
-   */
   useEffect(() => {
     let cancelled = false;
 
@@ -199,33 +233,36 @@ export default function Page() {
         setLoading(true);
         setError(null);
 
-        const url = `https://api.github.com/users/${PROFILE.githubUsername}/repos?per_page=100&sort=updated`;
+        const res = await fetch(
+          `https://api.github.com/users/${PROFILE.githubUsername}/repos?per_page=100&sort=updated`,
+          {
+            headers: {
+              Accept: "application/vnd.github+json",
+            },
+          }
+        );
 
-        const res = await fetch(url, {
-          headers: { Accept: "application/vnd.github+json" },
-        });
+        if (!res.ok) {
+          throw new Error(`GitHub API error (${res.status})`);
+        }
 
-        // Als res.ok false is: error status zoals 403 (rate limit) / 404 etc.
-        if (!res.ok) throw new Error(`GitHub API error (${res.status})`);
+        const data: Repo[] = await res.json();
 
-        const data = (await res.json()) as Repo[];
-
-        // Als component al ge-unmount is, niet meer state updaten
         if (cancelled) return;
 
         const filtered = data
-          .filter((r) => !r.fork) // verwijder forks
+          .filter((repo) => !repo.fork)
           .sort(
             (a, b) =>
-              (b.stargazers_count - a.stargazers_count) ||
+              b.stargazers_count - a.stargazers_count ||
               +new Date(b.updated_at) - +new Date(a.updated_at)
           )
           .slice(0, 6);
 
         setRepos(filtered);
-      } catch (e) {
+      } catch (err) {
         if (cancelled) return;
-        setError(e instanceof Error ? e.message : "Unknown error");
+        setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
         if (cancelled) return;
         setLoading(false);
@@ -234,84 +271,77 @@ export default function Page() {
 
     loadRepos();
 
-    // Cleanup: voorkomt state updates na unmount
     return () => {
       cancelled = true;
     };
   }, []);
 
-  /**
-   * THEME / STYLE TOKENS (dark mode)
-   * We gebruiken geen “pure black” (#000) omdat dat slecht leest.
-   * In plaats daarvan: graphite + subtiele gradient + zachte glow.
-   */
-  const pageBg =
-    "bg-gradient-to-b from-[#0b1020] via-[#070A12] to-[#05060B]";
-  const textSub = "text-zinc-300";
-  const textMuted = "text-zinc-400";
-
-  // Card style: glassy, subtiel, betere contrast
-  const cardBase =
-    "bg-white/5 border border-white/10 rounded-2xl backdrop-blur";
-  const cardHover =
-    "hover:bg-white/7 hover:border-white/15 transition-colors";
-
   return (
-    <main className={`min-h-screen ${pageBg} text-zinc-100`}>
-      {/* ============================================================
-          BACKGROUND GLOWS
-          - Alleen decoratie (pointer-events-none)
-          - Geeft contrast zodat tekst beter leesbaar is
-         ============================================================ */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-indigo-500/15 blur-3xl" />
-        <div className="absolute top-40 right-[-120px] h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-3xl" />
+    <main className="min-h-screen overflow-hidden bg-gradient-to-b from-[#0b1020] via-[#070A12] to-[#05060B] text-white">
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute left-1/2 top-[-120px] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[140px]" />
+        <div className="absolute bottom-[-120px] right-[-120px] h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-[140px]" />
       </div>
 
-      {/* ============================================================
-          CONTENT WRAPPER
-          - relative zodat background glows “achter” blijven
-         ============================================================ */}
-      <div className="relative px-6 py-10 md:px-12 md:py-14">
-        <div className="max-w-5xl mx-auto space-y-12">
-          {/* ============================================================
-              HERO / HEADER
-              - Motion header = subtiele fade/slide-in
-             ============================================================ */}
-          <motion.header
-            initial={{ opacity: 0, y: -16 }}
+      <div className="mx-auto max-w-6xl px-6 py-12 space-y-20">
+        <section className="flex min-h-[70vh] flex-col items-center justify-between gap-12 md:flex-row">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
-            className="text-center space-y-4"
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl space-y-6"
           >
-            <p className={`text-sm ${textMuted}`}>Portfolio</p>
+            <Badge className="bg-white/10 text-zinc-200 hover:bg-white/20">
+              Portfolio
+            </Badge>
 
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              {PROFILE.name}
+            <p className="text-zinc-400">Hallo, Ik ben</p>
+
+            <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+              <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                {PROFILE.name}
+              </span>
             </h1>
 
-            <p className={`text-lg ${textSub}`}>{PROFILE.tagline}</p>
+            <p className="h-7 text-lg text-zinc-300 md:text-xl">
+              {typedText}
+              <span className="animate-pulse">|</span>
+            </p>
 
-            {/* Buttons / CTA's */}
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
-              {/* Scroll naar contact */}
+            <p className="max-w-xl text-zinc-400">
+              Hallo! Ik ben een Software Engineering student uit Leeuwarden met
+                  een passie voor technologie en innovatie. Ik hou ervan om te
+                  leren, te experimenteren en uitdagende projecten tot leven te
+                  brengen.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
               <Button
-                className="bg-indigo-500 text-white hover:bg-indigo-400"
-                onClick={() => {
+                className="bg-indigo-500 hover:bg-indigo-400"
+                onClick={() =>
+                  document
+                    .getElementById("projects")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                View Projects
+              </Button>
+
+              <Button
+                variant="outline"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                onClick={() =>
                   document
                     .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 Contact
               </Button>
 
-              {/* CV download
-                  - Zet je cv in /public/cv.pdf zodat deze link werkt
-               */}
               <Button
                 variant="outline"
-                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
                 asChild
               >
                 <a href="/cv.pdf" download>
@@ -319,324 +349,418 @@ export default function Page() {
                 </a>
               </Button>
 
-              {/* GitHub link */}
               <Button
                 variant="outline"
-                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
                 asChild
               >
                 <a
                   href={PROFILE.githubUrl}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                 >
                   GitHub
                 </a>
               </Button>
 
-              {/* LinkedIn link */}
               <Button
                 variant="outline"
-                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
                 asChild
               >
                 <a
                   href={PROFILE.linkedinUrl}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </a>
               </Button>
-              {/* Newsartikellink */}
-              <Button
-                variant="outline"
-                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
-                asChild
-              >
-                <a
-                  href={PROFILE.nieuwsArtikelUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Nieuwsartikel
-                </a>
-              </Button>
             </div>
-          </motion.header>
+          </motion.div>
 
-          {/* ============================================================
-              OVER MIJ
-             ============================================================ */}
-          <Card className={`${cardBase} ${cardHover}`}>
-            <CardContent className="p-6 space-y-3">
-              <h2 className="text-2xl font-semibold text-zinc-100">Over mij</h2>
+          {/* RIGHT SIDE */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            className="relative w-[260px] h-[260px] md:w-[340px] md:h-[340px]"
+          >
+            {/* Glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 to-cyan-500/30 blur-[120px] rounded-full"></div>
 
-              <p className={`${textSub} leading-relaxed`}>
-                Hallo! Ik ben een Software Engineering student aan Firda met een passie voor technologie en innovatie.
-                 Via SoloLearn heb ik diverse certificaten behaald, waaronder Python, Java, en MySQL, waarmee ik mijn vaardigheden in softwareontwikkeling verder heb aangescherpt. 
-                 Ik hou ervan om te leren, te experimenteren en uitdagende projecten tot leven te brengen,
-                  en ik ben altijd op zoek naar nieuwe manieren om mijn kennis te verdiepen en toe te passen.
-              </p>
+            {/* Image */}
+            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/10 shadow-xl transition-transform duration-500 hover:scale-105">
+              <Image
+                src="/profile.jpg"
+                alt="Profile picture"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </motion.div>
+        </section>
 
-              {/* Skills badges */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                {skills.map((s) => (
+        <section id="about">
+          <Card className="rounded-2xl border-white/10 bg-white/5 text-white backdrop-blur">
+            <CardContent className="space-y-5 p-6">
+              <div>
+                <h2 className="text-2xl font-semibold text-center">Over mij</h2>
+                <p className="mt-3 max-w-5xl text-zinc-400 text-center">
+                  Ik ben iemand die energie haalt uit zowel beweging als verdieping.
+                  </p>
+
+                  <p className="mt-3 max-w-5xl text-zinc-400 text-center">
+                   Jarenlang stond ik op het voetbalveld, waar ik leerde wat discipline en teamwork echt betekenen. 
+                  De afgelopen jaren heb ik die drive meegenomen naar basketbal, een sport die mijn snelheid en spelinzicht blijft uitdagen.
+                  </p>
+
+                   <p className="mt-3 max-w-5xl text-zinc-400 text-center">
+                   Naast sport duik ik graag in filosofie, om mijn blik te verbreden en scherp te blijven denken.
+                    Tegelijk ben ik mezelf creatief aan het ontwikkelen door piano te leren spelen een proces dat geduld, focus en expressie samenbrengt. 
+                    </p>
+
+                    <p className="mt-5 max-w-5xl text-zinc-400 text-center">  
+                    
+                  Die combinatie van fysiek, mentaal en creatief groeien typeert wie ik ben.
+
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-2">
+                {skills.map((skill) => (
                   <Badge
-                    key={s}
-                    variant="secondary"
-                    className="bg-white/8 text-zinc-200 border border-white/10"
+                    key={skill}
+                    className="bg-white/10 text-zinc-200 hover:bg-white/20"
                   >
-                    {s}
+                    {skill}
                   </Badge>
                 ))}
               </div>
             </CardContent>
           </Card>
+        </section>
 
-          {/* ============================================================
-              PROJECTEN (GITHUB)
-             ============================================================ */}
-          <section className="space-y-4">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <h2 className="text-2xl font-semibold">Projecten</h2>
-                <p className={`text-sm ${textMuted}`}>
-                  Automatisch geladen vanaf GitHub ({PROFILE.githubUsername})
-                </p>
-              </div>
-
-              {/* Link naar alle repositories */}
-              <Button
-                variant="outline"
-                className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
-                asChild
-              >
-                <a
-                  href={`https://github.com/${PROFILE.githubUsername}?tab=repositories`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Alle repos
-                </a>
-              </Button>
+        <section id="projects">
+          <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+            <div>
+              <h2 className="text-2xl font-semibold">Projecten</h2>
+              <p className="mt-2 text-zinc-400">
+                Automatisch geladen vanaf GitHub ({PROFILE.githubUsername}).
+              </p>
             </div>
 
-            {/* Loading state */}
-            {loading && (
-              <Card className={cardBase}>
-                <CardContent className={`p-6 ${textMuted}`}>
-                  Projecten laden…
-                </CardContent>
-              </Card>
-            )}
+            <Button
+              variant="outline"
+              className="w-fit border-white/20 bg-white/5 text-white hover:bg-white/10"
+              asChild
+            >
+              <a
+                href={`${PROFILE.githubUrl}?tab=repositories`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Alle repos
+              </a>
+            </Button>
+          </div>
 
-            {/* Error state */}
-            {!loading && error && (
-              <Card className={cardBase}>
-                <CardContent className="p-6 space-y-3">
-                  <p className={textMuted}>
-                    Kon GitHub projecten niet laden:{" "}
-                    <span className="text-zinc-200">{error}</span>
-                  </p>
+          {loading ? (
+            <Card className="rounded-2xl border-white/10 bg-white/5 text-white">
+              <CardContent className="p-6 text-zinc-400">
+                Projecten laden...
+              </CardContent>
+            </Card>
+          ) : error ? (
+            <Card className="rounded-2xl border-white/10 bg-white/5 text-white">
+              <CardContent className="space-y-4 p-6">
+                <p className="text-zinc-400">
+                  Kon GitHub projecten niet laden: {error}
+                </p>
 
-                  <Button
-                    className="bg-indigo-500 text-white hover:bg-indigo-400"
-                    asChild
+                <Button asChild>
+                  <a
+                    href={PROFILE.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <a
-                      href={PROFILE.githubUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      Open GitHub profiel
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Success state: grid met repos */}
-            {!loading && !error && (
-              <div className="grid md:grid-cols-2 gap-6">
-                {repos.map((repo, index) => (
-                  <motion.div
-                    key={repo.id}
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.06 + index * 0.04,
-                      duration: 0.4,
-                      ease: "easeOut",
-                    }}
-                    whileHover={{ y: -3 }}
-                  >
-                    <Card className={`${cardBase} ${cardHover}`}>
-                      <CardContent className="p-6 space-y-3">
-                        {/* Titel + language badge */}
+                    Open GitHub profiel
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
+              {repos.map((repo, index) => (
+                <motion.div
+                  key={repo.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                >
+                  <Card className="h-full rounded-2xl border-white/10 bg-white/5 text-white transition hover:-translate-y-1 hover:bg-white/[0.07]">
+                    <CardContent className="flex h-full flex-col justify-between space-y-4 p-6">
+                      <div className="space-y-3">
                         <div className="flex items-start justify-between gap-3">
-                          <h3 className="text-xl font-semibold text-zinc-100">{repo.name}</h3>
-                          {repo.language ? (
-                            <Badge className="bg-white/8 text-zinc-200 border border-white/10">
+                          <h3 className="text-xl font-semibold">
+                            {repo.name}
+                          </h3>
+
+                          {repo.language && (
+                            <Badge className="bg-indigo-500/20 text-indigo-200">
                               {repo.language}
                             </Badge>
-                          ) : null}
+                          )}
                         </div>
 
-                        {/* Beschrijving */}
-                        <p className={`${textSub} leading-relaxed min-h-[44px]`}>
+                        <p className="min-h-[48px] text-zinc-400">
                           {repo.description ?? "Geen beschrijving toegevoegd."}
                         </p>
 
-                        {/* Stats + update */}
-                        <div className={`flex items-center justify-between text-sm ${textMuted}`}>
-                          <span>
-                            ⭐ {repo.stargazers_count} • 🍴 {repo.forks_count}
-                          </span>
-                          <span>Updated: {formatDate(repo.updated_at)}</span>
+                        <div className="text-sm text-zinc-500">
+                          ⭐ {repo.stargazers_count} • 🍴 {repo.forks_count} •
+                          Updated {formatDate(repo.updated_at)}
                         </div>
+                      </div>
 
+                      <div className="space-y-4">
                         <Separator className="bg-white/10" />
 
-                        {/* Buttons */}
-                        <div className="flex gap-3">
-                          <Button
-                            size="sm"
-                            className="bg-indigo-500 text-white hover:bg-indigo-400"
-                            asChild
-                          >
+                        <div className="flex flex-wrap gap-3 ">
+                          <Button size="sm" 
+                          variant="outline"
+                              className="border-white/20 text-white bg-indigo-500 hover:bg-indigo-400 hover:bg-white/10" 
+                          asChild>
                             <a
                               href={repo.html_url}
                               target="_blank"
-                              rel="noreferrer noopener"
+                              rel="noopener noreferrer"
                             >
                               GitHub
                             </a>
                           </Button>
 
-                          {/* Live link als repo.homepage bestaat */}
-                          {repo.homepage ? (
+                          {repo.homepage && (
                             <Button
                               size="sm"
                               variant="outline"
-                              className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10"
+                              className="border-white/20 bg-white/5 text-white hover:bg-white/10"
                               asChild
                             >
                               <a
                                 href={repo.homepage}
                                 target="_blank"
-                                rel="noreferrer noopener"
+                                rel="noopener noreferrer"
                               >
                                 Live
                               </a>
                             </Button>
-                          ) : null}
+                          )}
                         </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* ============================================================
-              CERTIFICATEN
-             ============================================================ */}
-          <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-zinc-100">Certificaten</h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {CERTIFICATES.map((c, index) => (
-                <motion.div
-                  key={c.title}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.06 + index * 0.04,
-                    duration: 0.35,
-                    ease: "easeOut",
-                  }}
-                  whileHover={{ y: -2 }}
-                >
-                  <Card className={`${cardBase} ${cardHover}`}>
-                    <CardContent className="p-6 space-y-2">
-                      <h3 className="font-semibold text-zinc-100">{c.title}</h3>
-                      <p className={`${textMuted} text-sm`}>
-                        {c.issuer} • {c.year}
-                      </p>
-
-                      {"credentialUrl" in c ? (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10 mt-2"
-                          asChild
-                        >
-                          <a
-                            href={c.credentialUrl}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                          >
-                            Bekijk credential
-                          </a>
-                        </Button>
-                      ) : (
-                        <div className="space-y-2">
-                          {c.links.map((link) => (
-                            <Button
-                              key={link.label}
-                              size="sm"
-                              variant="outline"
-                              className="border-white/15 bg-white/5 text-zinc-100 hover:bg-white/10 w-full"
-                              asChild
-                            >
-                              <a
-                                href={link.credentialUrl}
-                                target="_blank"
-                                rel="noreferrer noopener"
-                              >
-                                {link.label}
-                              </a>
-                            </Button>
-                          ))}
-                        </div>
-                      )}
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
             </div>
-          </section>
+          )}
+        </section>
 
-          {/* ============================================================
-              CONTACT
-             ============================================================ */}
-          <section id="contact">
-            <Card className={`${cardBase} ${cardHover}`}>
-              <CardContent className="p-6 space-y-2">
-                <h2 className="text-2xl font-semibold text-zinc-100">Contact</h2>
+        <section id="certificates">
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold">Certificaten</h2>
+            <p className="mt-2 text-zinc-400">
+              Een overzicht van behaalde certificaten en leertrajecten.
+            </p>
+          </div>
 
-                <p className={textSub}>
-                  📧{" "}
+          <div className="grid gap-6 md:grid-cols-3">
+            {CERTIFICATES.map((certificate, index) => (
+              <motion.div
+                key={certificate.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
+              >
+                <Card className="h-full rounded-2xl border-white/10 bg-white/5 text-white">
+                  <CardContent className="space-y-4 p-6">
+                    {"image" in certificate && certificate.image && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedCertificateImage({
+                            src: certificate.image,
+                            title: certificate.title,
+                          })
+                        }
+                        className="group relative h-44 w-full overflow-hidden rounded-xl border border-white/10 bg-white/5"
+                      >
+                        <Image
+                          src={certificate.image}
+                          alt={certificate.title}
+                          fill
+                          className="object-cover transition duration-300 group-hover:scale-105"
+                        />
+
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100">
+                          <span className="rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-black">
+                            View certificate
+                          </span>
+                        </div>
+                      </button>
+                    )}
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {certificate.title}
+                      </h3>
+                      <p className="text-sm text-zinc-400">
+                        {certificate.issuer} • {certificate.year}
+                      </p>
+                    </div>
+
+                    {"credentialUrl" in certificate ? (
+                      <Button size="sm" asChild>
+                        <a
+                          href={certificate.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="rounded-full bg-indigo-500 hover:bg-indigo-400 px-4 py-2 text-sm font-medium text-white">
+                            Bekijk credential
+                          </span>
+                        </a>
+                      </Button>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {certificate.links.map((link) => (
+                          <Button
+                            key={link.label}
+                            size="sm"
+                            variant="outline"
+                            className="border-white/20 bg-white/10 text-white hover:bg-white/10"
+                            asChild
+                          >
+                            <a
+                              href={link.credentialUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {link.label}
+                            </a>
+                          </Button>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact">
+          <Card className="rounded-2xl border-white/10 bg-white/5 text-white backdrop-blur">
+            <CardContent className="space-y-4 p-6">
+              <div>
+                <h2 className="text-2xl font-semibold">Contact</h2>
+                <p className="mt-2 text-zinc-400">
+                  Neem gerust contact met mij op voor stage, samenwerking of
+                  vragen over mijn projecten.
+                </p>
+              </div>
+
+              <div className="space-y-2 text-zinc-300">
+                <p>
+                  Email:{" "}
                   <a
-                    className="underline underline-offset-4 hover:text-white"
                     href={`mailto:${PROFILE.email}`}
+                    className="text-cyan-300 hover:underline"
                   >
                     {PROFILE.email}
                   </a>
                 </p>
 
-                <p className={textSub}>📍 {PROFILE.location}</p>
-              </CardContent>
-            </Card>
-          </section>
+                <p>Locatie: {PROFILE.location}</p>
+              </div>
 
-          {/* Footer */}
-          <p className="text-center text-xs text-zinc-500 pt-2">
-            © {new Date().getFullYear()} {PROFILE.name} • Built with Next.js
-          </p>
-        </div>
+              <div className="flex flex-wrap gap-3">
+                <Button className="bg-indigo-500 hover:bg-indigo-400" asChild>
+                  <a href={`mailto:${PROFILE.email}`}>Send Email</a>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                  asChild
+                >
+                  <a
+                    href={PROFILE.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                  asChild
+                >
+                  <a
+                    href={PROFILE.nieuwsArtikelUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Nieuwsartikel
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {selectedCertificateImage && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+    onClick={() => setSelectedCertificateImage(null)}
+  >
+    <div
+      className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b0f19] p-4"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h3 className="text-lg font-semibold text-white">
+          {selectedCertificateImage.title}
+        </h3>
+
+        <button
+          type="button"
+          onClick={() => setSelectedCertificateImage(null)}
+          className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm text-white hover:bg-white/20"
+        >
+          Close
+        </button>
+      </div>
+
+      <div className="relative h-[70vh] w-full overflow-hidden rounded-xl bg-white/5">
+        <Image
+          src={selectedCertificateImage.src}
+          alt={selectedCertificateImage.title}
+          fill
+          className="object-contain"
+        />
+      </div>
+    </div>
+  </div>
+)}
+
+        <footer className="pb-8 text-center text-sm text-zinc-500">
+          © {new Date().getFullYear()} {PROFILE.name} • Built with Next.js
+        </footer>
       </div>
     </main>
   );

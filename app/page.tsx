@@ -376,6 +376,19 @@ export default function Page() {
                   LinkedIn
                 </a>
               </Button>
+              <Button
+                  variant="outline"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                  asChild
+                >
+                  <a
+                    href={PROFILE.nieuwsArtikelUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Nieuwsartikel
+                  </a>
+                </Button>
             </div>
           </motion.div>
 
